@@ -1,0 +1,46 @@
+.card {
+    width: 484px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 24px;
+    /* height: 325px; */
+}
+.popup {
+    width: 100%;
+    display: block;
+}
+.card__body{
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 225px;
+    width: 100%;
+}
+
+.card__price {
+    position: absolute;
+    padding-inline: 14px;
+    padding-block: 12px;
+    background-color: #3347D2;
+    color: #ffffff;
+    inset-block-start: 20px;
+    inset-inline-start: 20px;
+    border-radius: 6px;
+}
+
+.card__info {
+    position: absolute;
+    color: #ffffff;
+    inset-block-end: 12px;
+    inset-inline-start: 20px;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.card__img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
