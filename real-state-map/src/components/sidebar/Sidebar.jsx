@@ -23,9 +23,7 @@ import { useContext } from 'react'
 import { PropertyContext } from '../../App'
 
 export const Sidebar = () => {
-  const [flag, setFlag] = useBoolean()
   const [isSelected, setIsSelected] = useState(false)
-  // const [price, setPrice] = useState([10, 30])
   const [buttons, setButtons] = useState([1, 2, 3, 4, 5])
 
   const [selected, setSelected] = useState(true)
@@ -33,19 +31,7 @@ export const Sidebar = () => {
     useContext(PropertyContext)
   const [min, max] = filters.price
 
-  // async function handlePropertyType(e) {
-  //   const { data } = await api
-  //     .get('properties', {
-  //       searchParams: {
-  //         type: value,
-  //       },
-  //     })
-  //     .json()
-  //   setProperties(data)
-  // }
-
   function handlePropertyFilter(filter) {
-    setFlag.toggle()
     setFilters((filters) => ({ ...filters, ...filter }))
   }
   // Me falta refactorizarlo
@@ -70,18 +56,21 @@ export const Sidebar = () => {
         </Heading>
         <SimpleGrid columns={2} spacing={5}>
           <Button
+            _hover={{ bg: '#3347D2', color: 'white' }}
+            alignItems="center"
             bg="gray.100"
             className="button_item"
-            h="120px"
+            color="#3347D2"
             display="flex"
             flexDir="column"
             gap="10px"
-            color="#3347D2"
-            alignItems="center"
+            h="120px"
             justifyContent="center"
-            rounded="10px"
-            _hover={{ bg: '#3347D2', color: 'white' }}
             onClick={() => handlePropertyFilter({ type: 'house' })}
+            sx={
+              filters.type == 'house' ? { bg: '#3347D2', color: 'white' } : ''
+            }
+            rounded="10px"
           >
             <svg
               width="40"
@@ -95,25 +84,32 @@ export const Sidebar = () => {
             <Text
               as="span"
               color="black"
-              sx={{ '.button_item:hover &': { color: 'white' } }}
+              sx={{
+                '.button_item:hover &': { color: 'white' },
+                '.button_item:focus &': { color: 'white' },
+              }}
             >
               Home
             </Text>
-            {flag.toString()}
           </Button>
           <Button
-            className="button_item"
+            _hover={{ bg: '#3347D2', color: 'white' }}
+            alignItems="center"
             bg="gray.100"
-            h="120px"
+            className="button_item"
+            color="#3347D2"
             display="flex"
             flexDir="column"
             gap="10px"
-            alignItems="center"
+            h="120px"
             justifyContent="center"
-            rounded="10px"
-            color="#3347D2"
-            _hover={{ bg: '#3347D2', color: 'white' }}
             onClick={() => handlePropertyFilter({ type: 'commercial' })}
+            rounded="10px"
+            sx={
+              filters.type == 'commercial'
+                ? { bg: '#3347D2', color: 'white' }
+                : ''
+            }
           >
             <svg
               width="36"
@@ -127,25 +123,32 @@ export const Sidebar = () => {
             <Text
               as="span"
               color="black"
-              sx={{ '.button_item:hover &': { color: 'white' } }}
+              sx={{
+                '.button_item:hover &': { color: 'white' },
+                '.button_item:focus &': { color: 'white' },
+              }}
             >
               Commercial
             </Text>
-            {flag.toString()}
           </Button>
           <Button
-            className="button_item"
+            _hover={{ bg: '#3347D2', color: 'white' }}
+            alignItems="center"
             bg="gray.100"
-            h="120px"
+            className="button_item"
+            color="#3347D2"
             display="flex"
             flexDir="column"
             gap="10px"
-            color="#3347D2"
-            alignItems="center"
+            h="120px"
             justifyContent="center"
-            rounded="10px"
-            _hover={{ bg: '#3347D2', color: 'white' }}
             onClick={() => handlePropertyFilter({ type: 'apartment' })}
+            sx={
+              filters.type == 'apartment'
+                ? { bg: '#3347D2', color: 'white' }
+                : ''
+            }
+            rounded="10px"
           >
             <svg
               width="40"
@@ -159,25 +162,30 @@ export const Sidebar = () => {
             <Text
               as="span"
               color="black"
-              sx={{ '.button_item:hover &': { color: 'white' } }}
+              sx={{
+                '.button_item:hover &': { color: 'white' },
+                '.button_item:focus &': { color: 'white' },
+              }}
             >
               Apartment
             </Text>
-            {flag.toString()}
           </Button>
           <Button
-            className="button_item"
+            _hover={{ bg: '#3347D2', color: 'white' }}
+            alignItems="center"
             bg="gray.100"
-            h="120px"
+            className="button_item"
+            color="#3347D2"
             display="flex"
             flexDir="column"
             gap="10px"
-            color="#3347D2"
-            alignItems="center"
+            h="120px"
             justifyContent="center"
-            rounded="10px"
-            _hover={{ bg: '#3347D2', color: 'white' }}
             onClick={() => handlePropertyFilter({ type: 'vacant' })}
+            rounded="10px"
+            sx={
+              filters.type == 'vacant' ? { bg: '#3347D2', color: 'white' } : ''
+            }
           >
             <svg
               width="40"
@@ -198,7 +206,10 @@ export const Sidebar = () => {
             <Text
               as="span"
               color="black"
-              sx={{ '.button_item:hover &': { color: 'white' } }}
+              sx={{
+                '.button_item:hover &': { color: 'white' },
+                '.button_item:focus &': { color: 'white' },
+              }}
             >
               Vacant Land
             </Text>
@@ -235,11 +246,14 @@ export const Sidebar = () => {
         <Stack mt="6px" direction="row" spacing="20px">
           {buttons.map((number) => (
             <Button
-              key={number}
-              w="62px"
-              h="56px"
-              onClick={() => handlePropertyFilter({ rooms: number })}
               _hover={{ bg: '#3347D2', color: 'white' }}
+              h="56px"
+              key={number}
+              onClick={() => handlePropertyFilter({ rooms: number })}
+              w="62px"
+              sx={
+                filters.rooms == number ? { bg: '#3347D2', color: 'white' } : ''
+              }
             >
               {number}
             </Button>
@@ -250,11 +264,16 @@ export const Sidebar = () => {
         <Stack mt="6px" direction="row" spacing="20px">
           {buttons.map((number) => (
             <Button
-              key={number}
-              w="62px"
-              h="56px"
-              onClick={() => handlePropertyFilter({ bathrooms: number })}
               _hover={{ bg: '#3347D2', color: 'white' }}
+              h="56px"
+              key={number}
+              onClick={() => handlePropertyFilter({ bathrooms: number })}
+              w="62px"
+              sx={
+                filters.bathrooms == number
+                  ? { bg: '#3347D2', color: 'white' }
+                  : ''
+              }
             >
               {number}
             </Button>

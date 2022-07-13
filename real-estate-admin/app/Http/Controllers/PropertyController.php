@@ -71,14 +71,10 @@ class PropertyController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Property $property)
+
+    public function destroy(Property $property): \Illuminate\Http\RedirectResponse
     {
-        //
+        $property->delete();
+        return redirect()->action([PropertyController::class,'index']);
     }
 }

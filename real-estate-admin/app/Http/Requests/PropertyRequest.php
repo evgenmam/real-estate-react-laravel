@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PropertyRequest extends FormRequest
 {
@@ -23,11 +24,11 @@ class PropertyRequest extends FormRequest
         return [
             'name' => ['required'],
             'description' => ['required'],
-            'type' => ['required'],
+            'type' => ['required',Rule::in(['house','commercial','apartment','vacant'])],
             'rooms' => ['required','integer', 'min:1'],
             'bathrooms' => ['required','integer', 'min:1'],
             'price' => ['required', 'integer', 'min:1'],
-            'photos' => ['required','mimes:jpg,png,jpeg'],
+            'img_path' => ['required','mimes:jpg,png,jpeg'],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180']
         ];

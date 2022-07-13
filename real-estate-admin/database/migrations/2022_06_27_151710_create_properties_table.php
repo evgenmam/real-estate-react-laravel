@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->unsignedInteger('price');
-            $table->string('type');
+            $table->enum('type',['house','commercial','apartment','vacant']);
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bathrooms');
             $table->string('img_path');
