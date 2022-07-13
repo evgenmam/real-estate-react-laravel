@@ -30,7 +30,7 @@ class PropertyController extends Controller
     public function store(PropertyRequest $request)
     {
         $data = $request->validated();
-        $data['photos'] = $request->file('photos')->store('images');
+        $data['img_path'] = $request->file('img_path')->store('images');
 
         $user = Auth::user();
         $user->properties()->create($data);

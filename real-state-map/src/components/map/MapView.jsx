@@ -4,11 +4,14 @@ import mapboxgl, { Popup } from 'mapbox-gl'
 import ky from 'ky'
 import './popup.css'
 import { api } from '../utils/api'
+import { useContext } from 'react'
+import { PropertyContext } from '../../App'
 
 export const MapView = () => {
-  const [properties, setProperties] = useState([])
+  // const [properties, setProperties] = useState([])
+  const { properties, setProperties } = useContext(PropertyContext)
   const map = useRef(null)
-  const marker = useRef(null)
+  let markers = []
   const mapContainer = useRef(null)
 
   useLayoutEffect(() => {
@@ -27,9 +30,7 @@ export const MapView = () => {
       )
     } else {
       if (properties.length === 0) return
-      console.log(properties)
       properties.forEach((property) => {
-        console.log(property)
         const propertyPopup = new Popup().setHTML(
           `<div class="card">
           <div class="card__body">
@@ -50,23 +51,19 @@ export const MapView = () => {
         </div>`
         )
 
-        new mapboxgl.Marker({ color: '#3347D2' })
+        const marker = new mapboxgl.Marker({ color: '#3347D2' })
           .setLngLat([property.longitude, property.latitude])
           .setPopup(propertyPopup)
           .addTo(map.current)
+        markers.push(marker)
+      })
+    }
+    return () => {
+      markers.forEach((element) => {
+        element.remove()
       })
     }
   }, [properties])
-
-  useEffect(() => {
-    api
-      .get('properties')
-      .json()
-      .then(({ data }) => {
-        setProperties(data)
-      })
-      .catch((err) => console.log(err))
-  }, [])
 
   return <div style={{ width: '100%' }} id="map" ref={mapContainer}></div>
 }

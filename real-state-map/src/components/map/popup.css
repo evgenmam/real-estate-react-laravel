@@ -1,9 +1,26 @@
-.card {
+.mapboxgl-popup-content {
     width: 484px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 24px;
-    /* height: 325px; */
+}
+
+.mapboxgl-popup-close-button {
+    width: 18px;
+    font-size: 1.5rem;
+    inset-block-start: 4px;
+    inset-inline-end: 10px;
+    border-radius: 50%;
+    background: #bebebe;
+    outline: none;
+    color: white;
+
+}
+
+.mapboxgl-popup-close-button:hover {
+    color: white;
+    background: gray;
+
 }
 .popup {
     width: 100%;
@@ -30,7 +47,7 @@
 
 .card__info {
     position: absolute;
-    color: #ffffff;
+    color: black;
     inset-block-end: 12px;
     inset-inline-start: 20px;
     font-weight: 600;

@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('type');
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bathrooms');
-            $table->string('photos');
-            $table->float('latitude',6,6);
-            $table->float('longitude',);
+            $table->string('img_path');
+            $table->float('latitude',8,0);
+            $table->float('longitude',8,0);
             $table->softDeletes();
             $table->timestamps();
         });

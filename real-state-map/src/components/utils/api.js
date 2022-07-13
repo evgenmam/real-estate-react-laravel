@@ -1,6 +1,6 @@
 import ky from 'ky'
 
-const url = 'http://localhost:8000/api'
+const url = import.meta.env.VITE_API_URL
 // const access_token = localStorage.getItem('access_token')
 
 export const api = ky.create({
