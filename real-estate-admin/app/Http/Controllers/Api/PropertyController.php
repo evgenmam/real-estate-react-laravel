@@ -8,7 +8,6 @@ use App\Models\Property;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class PropertyController extends Controller
 {
@@ -22,25 +21,25 @@ class PropertyController extends Controller
 
         $properties = Property::query()
             ->when($type,
-                function (Builder $query) use ($type) {
-                    return $query->where('type', $type);
+                function ($query) use ($type) {
+                    $query->where('type', $type);
                 })
             ->when($rooms,
-            function ($query) use ($rooms) {
-                return ($rooms == 5) ? $query->where('rooms', '>=', $rooms) : $query->where('rooms', '=', $rooms);
-            })
+                function ($query) use ($rooms) {
+                    ($rooms == 5) ? $query->where('rooms', '>=', $rooms) : $query->where('rooms', '=', $rooms);
+                })
             ->when($bathrooms,
                 function ($query) use ($bathrooms) {
-                    return ($bathrooms == 5) ? $query->where('bathrooms', '>=', $bathrooms)
+                    ($bathrooms == 5) ? $query->where('bathrooms', '>=', $bathrooms)
                         : $query->where('bathrooms', '=', $bathrooms);
                 })
             ->when($request->input('price'),
                 function ( $query) use ($price) {
-                    return $query->whereBetween('price', explode(',', $price) );
+                    $query->whereBetween('price', explode(',', $price) );
                 })
             ->when($search ,
                 function ( $query) use ($search) {
-                    return $query->where('name', 'like', "%$search");
+                    $query->where('name', 'like', "%$search");
                 })
             ->get();
 
@@ -49,8 +48,8 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search');
-        $properties = Property::where('name','like', "%$search%")->get();
+        $text = $request->input('text');
+        $properties = Property::where('name','like', "%$text%")->get();
 
         return PropertyResource::collection($properties);
     }

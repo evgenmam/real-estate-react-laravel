@@ -22,7 +22,7 @@ class PropertyResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'name' => $this->name,
-            'img_path' => $this->img_path,
+            'image' => $this->image(),
             'price' => $this->price,
             'rooms' => $this->rooms,
             'type' => $this->type,

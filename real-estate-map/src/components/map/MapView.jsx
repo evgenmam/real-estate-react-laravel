@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import mapboxgl, { Popup } from 'mapbox-gl'
-import './popup.css'
-import { useContext } from 'react'
-import { PropertyContext } from '../../App'
 import { Box } from '@chakra-ui/react'
+import { PropertyContext } from '../../App'
+import './popup.css'
 
 export const MapView = () => {
   const { properties, setProperties } = useContext(PropertyContext)
   const map = useRef(null)
   const markers = useRef([])
-  const [mark, setMark] = useState([])
   const mapContainer = useRef(null)
   useEffect(() => {
     if (!map.current) {
@@ -32,12 +30,12 @@ export const MapView = () => {
           <div class="card__body">
             <span class="card__price">$${property.price}/mo</span>
             <img
-              src="http://127.0.0.1:8000/storage/${property.img_path}"
+              src="${property.image}"
               alt=""
               class="card__img"
             />
             <div class="card__info">
-              <h4 class="card__name"> ${property.type}</h4>
+              <h4 class="card__name"> ${property.name}</h4>
               <span class="card__description">
               ${property.description}
               </span>
@@ -56,13 +54,10 @@ export const MapView = () => {
         map.current.flyTo({
           center: [property.longitude, property.latitude],
           essential: true,
-          zoom: 10,
+          zoom: 12,
         })
       })
       markers.current.push(marker)
-      setMark((mark) => [...mark, marker])
-      // setMark([...mark, marker])
-      // markers.push(marker)
     })
 
     return () => {
@@ -71,8 +66,6 @@ export const MapView = () => {
       })
     }
   }, [properties])
-
-  console.log(markers)
 
   return <Box width="full" ref={mapContainer}></Box>
 }

@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import { ChakraProvider, Container, Flex } from '@chakra-ui/react'
 import mapboxgl from 'mapbox-gl'
 import { Navbar } from './components/navbar/Navbar'
 import { Sidebar } from './components/sidebar/Sidebar'
-import 'mapbox-gl/dist/mapbox-gl.css'
-
 import { MapView } from './components/map/MapView'
-import { useContext } from 'react'
-import { createContext } from 'react'
 import { api } from './components/utils/api'
-import { Test } from './components/map/Test'
+
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 mapboxgl.accessToken = import.meta.env.VITE_ACCESS_TOKEN
 
@@ -17,15 +14,14 @@ export const PropertyContext = createContext(null)
 
 const App = () => {
   const [properties, setProperties] = useState([])
+
   const [filters, setFilters] = useState({
     type: '',
     price: [5000, 20000],
     rooms: '',
     bathrooms: '',
-    typeActive: false,
-    // roomActive: false,
-    // bathroomActive: false,
   })
+
   useEffect(() => {
     api
       .get('properties', {
@@ -48,7 +44,6 @@ const App = () => {
           >
             <Sidebar />
             <MapView />
-            {/* <Test /> */}
           </PropertyContext.Provider>
         </Flex>
       </Container>
