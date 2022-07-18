@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PropertyType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->unsignedInteger('price');
-            $table->enum('type',['house','commercial','apartment','vacant']);
+            $table->enum('type', PropertyType::getValues());
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bathrooms');
             $table->string('img_path');

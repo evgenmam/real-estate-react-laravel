@@ -6,6 +6,7 @@ use App\Http\Requests\PropertyRequest;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -13,17 +14,14 @@ class PropertyController extends Controller
     public function index()
     {
          $user = auth()->user();
-
          $properties = $user->properties;
-
-//        $properties = Property::all();
         return view('properties.index', compact('properties'));
     }
 
 
     public function create()
     {
-        return view('properties.create');
+        return view('properties.create',['property' => null]);
     }
 
 
@@ -32,7 +30,7 @@ class PropertyController extends Controller
         $data = $request->validated();
         $data['img_path'] = $request->file('img_path')->store('images');
 
-        $user = Auth::user();
+        $user = auth()->user();
         $user->properties()->create($data);
         return back();
     }
@@ -45,30 +43,29 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Property  $property
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Property $property)
     {
-        //
+        return view('properties.edit',compact('property'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Property $property)
+    public function update(PropertyRequest $request, Property $property)
     {
-        //
+
+        if ($request->hasFile('img_path')){
+
+            Storage::delete($property->img_path);
+            $property->fill($request->validated());
+            $property['img_path'] = $request->file('img_path')->store('images');
+
+            $property->save();
+        } else {
+            $property->update( array_filter( $request->validated()));
+        }
+
+        return redirect()->action([PropertyController::class,'index']);
     }
 
 

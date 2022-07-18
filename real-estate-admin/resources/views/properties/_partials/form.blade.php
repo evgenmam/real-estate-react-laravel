@@ -1,5 +1,12 @@
-<form action="{{route('properties.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{ isset($property)
+                    ? route('properties.update', ['property' => $property->id])
+                    : route('properties.store')}}" method="post" enctype="multipart/form-data">
     @csrf
+
+    @if($property)
+        @method('PATCH')
+    @endif
+
 
     <div class="">
         <label class="block py-2">
@@ -14,11 +21,11 @@
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   " placeholder=""
                    name="name"
-                   value="{{old('name')}}"
+                   value="{{old('name', $property?->name)}}"
             >
         </label>
         @error('name')
-        <div class="text-red-600 pb-2">{{$message}}</div>
+            <div class="text-red-600 pb-2">{{$message}}</div>
         @enderror
 
         <label class="block py-2">
@@ -35,14 +42,14 @@
                     name="type"
             >
                 <option value="">select type</option>
-                <option value="house" {{old('type') == 'house' ? 'selected' : ''}}>House</option>
-                <option value="commercial" {{old('type') == 'commercial' ? 'selected' : ''}}>Commercial</option>
-                <option value="apartment">Apartment</option>
-                <option value="vacant">Vacant Land</option>
+                <option value="house" {{old('type', $property?->type) == 'house' ? 'selected' : ''}}>House</option>
+                <option value="commercial" {{old('type', $property?->type) == 'commercial' ? 'selected' : ''}}>Commercial</option>
+                <option value="apartment" {{old('type', $property?->type) == 'apartment' ? 'selected' : ''}}>Apartment</option>
+                <option value="vacant" {{old('type', $property?->type) == 'vacant' ? 'selected' : ''}}>Vacant Land</option>
             </select>
         </label>
         @error('type')
-        <div class="text-red-600 pb-2">{{$message}}</div>
+            <div class="text-red-600 pb-2">{{$message}}</div>
         @enderror
         <label class="block py-2">
             <span class="text-gray-700">Description</span>
@@ -57,10 +64,10 @@
                       rows="3"
                       name="description"
 
-            >{{old('description')}}</textarea>
+            >{{old('description', $property?->description)}}</textarea>
         </label>
         @error('description')
-        <div class="text-red-600 pb-2">{{$message}}</div>
+            <div class="text-red-600 pb-2">{{$message}}</div>
         @enderror
         <div class="flex gap-2">
             <label class="block py-2">
@@ -75,7 +82,7 @@
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
                        name="rooms"
-                       value="{{old('rooms')}}"
+                       value="{{old('rooms', $property?->rooms)}}"
                 >
             </label>
 
@@ -91,7 +98,7 @@
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
                        name="bathrooms"
-                       value="{{old('bathrooms')}}"
+                       value="{{old('bathrooms', $property?->bathrooms)}}"
 
                 >
             </label>
@@ -107,7 +114,7 @@
                     shadow-sm
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                    name="price"
-                   value="{{old('price')}}"
+                   value="{{old('price', $property?->price)}}"
                 >
             </label>
         </div>
@@ -128,10 +135,10 @@
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
                        name="latitude"
-                       value="{{old('latitude')}}"
+                       value="{{old('latitude', $property?->latitude)}}"
                 >
                 @error('latitude')
-                <span class="text-red-600">{{$message}}</span>
+                    <span class="text-red-600">{{$message}}</span>
                 @enderror
             </label>
 
@@ -147,15 +154,13 @@
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
                    name="longitude"
-                   value="{{old('longitude')}}"
+                   value="{{old('longitude', $property?->longitude)}}"
 
                 >
                 @error('longitude')
                     <span class="text-red-600">{{$message}}</span>
                 @enderror
             </label>
-
-
         </div>
 
         <label class="block py-2">
@@ -174,9 +179,9 @@
             >
         </label>
         @error('img_path')
-        <div class="text-red-600 pb-2">{{$message}}</div>
+            <div class="text-red-600 pb-2">{{$message}}</div>
         @enderror
 
-        <button class="text-white bg-blue-500 rounded-xl py-2 w-full">Create</button>
+        <button class="text-white bg-blue-500 rounded-xl py-2 w-full">{{$btnText}}</button>
     </div>
 </form>

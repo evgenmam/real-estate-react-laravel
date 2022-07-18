@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PropertyType;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class PropertyRequest extends FormRequest
 {
@@ -22,13 +25,16 @@ class PropertyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'name' => ['required', 'min:3'],
             'description' => ['required'],
-            'type' => ['required',Rule::in(['house','commercial','apartment','vacant'])],
-            'rooms' => ['required','integer', 'min:1'],
-            'bathrooms' => ['required','integer', 'min:1'],
+            'type' => ['required', new EnumValue(PropertyType::class)],
+            'rooms' => ['required', 'integer', 'min:1'],
+            'bathrooms' => ['required', 'integer', 'min:1'],
             'price' => ['required', 'integer', 'min:1'],
-            'img_path' => ['required','mimes:jpg,png,jpeg'],
+            'img_path' => [
+                $this->route('property') ? 'nullable' : 'required',
+                'mimes:jpg,png,jpeg'
+            ],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180']
         ];

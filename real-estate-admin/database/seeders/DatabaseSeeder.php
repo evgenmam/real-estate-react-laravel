@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PropertyType;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder
 //             'name' => 'Alex',
 //             'email' => 'alex@mail.com',
 //         ]);
-        $types = ['house', 'commercial','apartment', 'vacant'];
+        $types = PropertyType::getValues();
 
         foreach($types as $type) {
             Property::factory(5)

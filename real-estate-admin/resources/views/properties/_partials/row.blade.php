@@ -26,7 +26,7 @@
         {{$property->latitude}}, {{$property->longitude}}
     </td>
     <td class="px-6 py-4 text-right">
-        <a href="#" class="font-medium text-blue-600 dark:text-blue-500">Edit</a>
+        <a href="{{ route('properties.edit',['property' => $property->id]) }}" class="font-medium text-blue-600 dark:text-blue-500">Edit</a>
         <form action="{{route('properties.destroy',['property'=>$property->id])}}" method="post">
             @method('DELETE')
             @csrf
