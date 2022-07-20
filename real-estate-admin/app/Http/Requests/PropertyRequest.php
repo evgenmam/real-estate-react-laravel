@@ -39,4 +39,12 @@ class PropertyRequest extends FormRequest
             'longitude' => ['required', 'numeric', 'between:-180,180']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'img_path.required' => 'the image is required',
+            'img_path.mimes' => 'the image must be a file of type: jpg, png or jpeg'
+        ];
+    }
 }

@@ -7,16 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 <body>
 
     <div class="flex">
         @include('layouts._partials.sidebar')
-        <div class="flex-1 bg-gray-200">
+        <div class="w-full bg-gray-200">
             @yield('main')
         </div>
     </div>
     <script src="{{ asset('js/flowbite.js') }}"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
 
+    @yield('scripts')
 </body>
 </html>

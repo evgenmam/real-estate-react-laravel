@@ -21,7 +21,7 @@ class Property extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function image()
+    public function image_url()
     {
         return Storage::url($this->img_path);
     }

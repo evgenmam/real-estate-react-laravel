@@ -56,21 +56,30 @@ class PropertyController extends Controller
 
     public function update(PropertyRequest $request, Property $property): RedirectResponse
     {
+        $data = $request->validated();
         if ($request->hasFile('img_path')) {
 
             Storage::delete($property->img_path);
 
-            $property->fill($request->validated());
+            $data['img_path'] = $request->file('img_path')->store('images');
 
-            $property['img_path'] = $request->file('img_path')->store('images');
+            $property->update($data);
 
-            $property->save();
+//        if ($request->hasFile('img_path')) {
+//
+//            Storage::delete($property->img_path);
+//
+//            $property->fill($request->validated());
+//
+//            $property->img_path = $request->file('img_path')->store('images');
+//
+//            $property->save();
 
         } else {
-            $property->update( array_filter( $request->validated()));
+            $property->update( array_filter( $data));
         }
 
-        return redirect()->action([PropertyController::class,'index'])->with('update','Property updated successfully');
+        return redirect()->action([PropertyController::class,'index'])->with('update','Property was updated');
     }
 
 

@@ -9,28 +9,28 @@ export const MapView = () => {
   const map = useRef(null)
   const markers = useRef([])
   const mapContainer = useRef(null)
-  useEffect(() => {
-    if (!map.current) {
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v10',
-        center: [-85, 12.96],
-        zoom: 7,
-      })
 
-      map.current.addControl(
-        new mapboxgl.NavigationControl({
-          visualizePitch: true,
-        })
-      )
-    }
+  useEffect(() => {
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: [-85, 12.96],
+      zoom: 7,
+    })
+
+    map.current.addControl(
+      new mapboxgl.NavigationControl({
+        visualizePitch: true,
+      })
+    )
+
     properties.forEach((property) => {
       const propertyPopup = new Popup().setHTML(
         `<div class="card">
           <div class="card__body">
             <span class="card__price">$${property.price}/mo</span>
             <img
-              src="${property.image}"
+              src="${property.image_url}"
               alt=""
               class="card__img"
             />
@@ -41,7 +41,7 @@ export const MapView = () => {
               </span>
             </div>
           </div>
-          <div>rooms:${property.rooms} bathrooms:${property.bathrooms}</div>
+          <div class="card_">rooms:${property.rooms} bathrooms:${property.bathrooms}</div>
         </div>`
       )
 
@@ -61,6 +61,7 @@ export const MapView = () => {
     })
 
     return () => {
+      map.current.remove()
       markers.current.forEach((el) => {
         el.remove()
       })

@@ -3,20 +3,12 @@ import React, { useMemo, useState } from 'react'
 import { SearchIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Button,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
-  RangeSlider,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
-  RangeSliderTrack,
-  SimpleGrid,
   Stack,
   Text,
-  useBoolean,
 } from '@chakra-ui/react'
 import { api } from '../utils/api'
 import { useContext } from 'react'
@@ -41,7 +33,6 @@ export const Sidebar = () => {
   }
   function handleInputChange({ target }) {
     setSearch(target.value)
-    // setFilters({ text: search })
   }
 
   const debouncedResults = useMemo(() => {
