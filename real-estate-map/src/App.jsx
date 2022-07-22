@@ -7,6 +7,7 @@ import { MapView } from './components/map/MapView'
 import { api } from './components/utils/api'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import './components/map/popup.css'
 
 mapboxgl.accessToken = import.meta.env.VITE_ACCESS_TOKEN
 

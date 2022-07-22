@@ -22,12 +22,12 @@
             @include('properties._partials.form',['btnText' => 'Create'])
         </div>
 
-        <div class="flex items-center justify-center">
-            <div>
-                <h4>Adds the location</h4>
-                @include('properties._partials.map')
+            <div class="flex items-center justify-center">
+                <div>
+                    <h4>Adds the location</h4>
+                    @include('properties._partials.map')
+                </div>
             </div>
-        </div>
     </div>
 @endsection
 

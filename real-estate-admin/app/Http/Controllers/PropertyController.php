@@ -54,7 +54,7 @@ class PropertyController extends Controller
         return view('properties.edit',compact('property'));
     }
 
-    public function update(PropertyRequest $request, Property $property): RedirectResponse
+    public function update(PropertyRequest $request, Property $property)
     {
         $data = $request->validated();
         if ($request->hasFile('img_path')) {
@@ -62,8 +62,9 @@ class PropertyController extends Controller
             Storage::delete($property->img_path);
 
             $data['img_path'] = $request->file('img_path')->store('images');
+        }
 
-            $property->update($data);
+//            $property->update($data);
 
 //        if ($request->hasFile('img_path')) {
 //
@@ -74,10 +75,9 @@ class PropertyController extends Controller
 //            $property->img_path = $request->file('img_path')->store('images');
 //
 //            $property->save();
-
-        } else {
-            $property->update( array_filter( $data));
-        }
+//        } else {
+            $property->update($data);
+//        }
 
         return redirect()->action([PropertyController::class,'index'])->with('update','Property was updated');
     }

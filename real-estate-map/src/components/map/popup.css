@@ -1,8 +1,7 @@
 .mapboxgl-popup-content {
     border-radius: 24px;
-    padding-block-start: 20px;
-    padding-inline: 20px;
-    width: 484px;
+    padding: 0;
+    width: fit-content;
 }
 
 .mapboxgl-popup-close-button {

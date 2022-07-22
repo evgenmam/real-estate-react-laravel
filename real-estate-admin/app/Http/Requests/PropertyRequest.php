@@ -32,13 +32,14 @@ class PropertyRequest extends FormRequest
             'bathrooms' => ['required', 'integer', 'min:1'],
             'price' => ['required', 'integer', 'min:1'],
             'img_path' => [
-                $this->route('property') ? 'nullable' : 'required',
+                $this->route('property') ? 'sometimes' : 'required',
                 'mimes:jpg,png,jpeg'
             ],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180']
         ];
     }
+//
 
     public function messages()
     {
