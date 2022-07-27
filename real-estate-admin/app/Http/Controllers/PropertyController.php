@@ -64,20 +64,7 @@ class PropertyController extends Controller
             $data['img_path'] = $request->file('img_path')->store('images');
         }
 
-//            $property->update($data);
-
-//        if ($request->hasFile('img_path')) {
-//
-//            Storage::delete($property->img_path);
-//
-//            $property->fill($request->validated());
-//
-//            $property->img_path = $request->file('img_path')->store('images');
-//
-//            $property->save();
-//        } else {
-            $property->update($data);
-//        }
+        $property->update($data);
 
         return redirect()->action([PropertyController::class,'index'])->with('update','Property was updated');
     }

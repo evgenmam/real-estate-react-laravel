@@ -17,8 +17,8 @@ const App = () => {
   const [properties, setProperties] = useState([])
 
   const [filters, setFilters] = useState({
-    type: '',
-    price: [5000, 20000],
+    types: [],
+    price: [1000, 20000],
     rooms: '',
     bathrooms: '',
   })

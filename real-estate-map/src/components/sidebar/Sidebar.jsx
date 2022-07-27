@@ -14,44 +14,44 @@ import { api } from '../utils/api'
 import { useContext } from 'react'
 import { PropertyContext } from '../../App'
 import debounce from 'lodash.debounce'
-import { useEffect } from 'react'
 import { SidebarRooms } from './SidebarRooms'
 import { SidebarBathrooms } from './SidebarBathrooms'
 import { SidebarPrice } from './SidebarPrice'
-import { PropertyType } from './SidebarTypes'
+import { PropertyType } from './PropertyType'
 
 export const Sidebar = () => {
   const [search, setSearch] = useState('')
 
   const buttons = [1, 2, 3, 4, 5]
 
-  const { filters, setFilters, setProperties } = useContext(PropertyContext)
+  const { filters, setFilters } = useContext(PropertyContext)
   const [min, max] = filters.price
 
   function handlePropertyFilter(filter) {
-    setFilters((filters) => ({ ...filters, ...filter }))
+    setFilters((f) => ({ ...f, ...filter }))
   }
+
   function handleInputChange({ target }) {
     setSearch(target.value)
   }
 
-  const debouncedResults = useMemo(() => {
-    return debounce(handleInputChange, 300)
-  }, [])
+  // const debouncedResults = useMemo(() => {
+  //   return debounce(handleInputChange, 300)
+  // }, [])
 
-  useEffect(() => {
-    if (search !== '') {
-      api
-        .get('search', {
-          searchParams: { text: search },
-        })
-        .json()
-        .then(({ data }) => {
-          setProperties(data)
-        })
-    }
-    return debouncedResults.cancel()
-  })
+  // useEffect(() => {
+  //   if (search !== '') {
+  //     api
+  //       .get('search', {
+  //         searchParams: { text: search },
+  //       })
+  //       .json()
+  //       .then(({ data }) => {
+  //         setProperties(data)
+  //       })
+  //   }
+  //   return debouncedResults.cancel()
+  // })
 
   return (
     <Box
@@ -73,10 +73,7 @@ export const Sidebar = () => {
         />
       </InputGroup>
 
-      <PropertyType
-        handlePropertyFilter={handlePropertyFilter}
-        filter={filters}
-      />
+      <PropertyType />
 
       <SidebarPrice
         min={min}
@@ -85,7 +82,7 @@ export const Sidebar = () => {
       />
 
       <Box mt="22px">
-        <Heading fontSize="2xl"> Property Room</Heading>
+        <Heading fontSize="2xl">Property Room</Heading>
         <Text mt="8px">Bedroom</Text>
         <Stack mt="6px" direction="row" spacing="20px">
           {buttons.map((value) => (

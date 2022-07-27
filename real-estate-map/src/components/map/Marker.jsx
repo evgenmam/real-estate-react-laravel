@@ -23,8 +23,7 @@ export const Marker = ({ property, map }) => {
     })
 
     return () => {
-      console.log('se desmonto')
-      marker.getElement().removeEventListener('click', console.log('funciono'))
+      marker.getElement().removeEventListener('click', () => {})
       marker.remove()
     }
   })

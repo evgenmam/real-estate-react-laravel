@@ -1,7 +1,23 @@
 import { Box, Button, Heading, SimpleGrid, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { PropertyContext } from '../../App'
 
-export const PropertyType = ({ handlePropertyFilter, filter }) => {
+export const PropertyType = () => {
+  const { filters, setFilters } = useContext(PropertyContext)
+  const [toogleType, setToggleType] = useState([])
+
+  function setProppertyToggle(type) {
+    toogleType.includes(type)
+      ? setToggleType(toogleType.filter((t) => t !== type))
+      : setToggleType((t) => [...t, type])
+  }
+
+  useEffect(() => {
+    setFilters((filter) => ({ ...filter, types: toogleType }))
+  }, [toogleType])
+
   return (
     <Box mt="22px">
       <Heading fontSize="2xl" mb="12px">
@@ -19,9 +35,9 @@ export const PropertyType = ({ handlePropertyFilter, filter }) => {
           gap="10px"
           h="120px"
           justifyContent="center"
-          onClick={() => handlePropertyFilter({ type: 'house' })}
+          onClick={() => setProppertyToggle('house')}
           sx={
-            filter.type == 'house'
+            filters.types.includes('house')
               ? {
                   bg: '#3347D2',
                   color: 'white',
@@ -59,10 +75,10 @@ export const PropertyType = ({ handlePropertyFilter, filter }) => {
           gap="10px"
           h="120px"
           justifyContent="center"
-          onClick={() => handlePropertyFilter({ type: 'commercial' })}
+          onClick={() => setProppertyToggle('commercial')}
           rounded="10px"
           sx={
-            filter.type == 'commercial'
+            filters.types.includes('commercial')
               ? { bg: '#3347D2', color: 'white', span: { color: 'white' } }
               : ''
           }
@@ -95,9 +111,9 @@ export const PropertyType = ({ handlePropertyFilter, filter }) => {
           gap="10px"
           h="120px"
           justifyContent="center"
-          onClick={() => handlePropertyFilter({ type: 'apartment' })}
+          onClick={() => setProppertyToggle('apartment')}
           sx={
-            filter.type == 'apartment'
+            filters.types.includes('apartment')
               ? { bg: '#3347D2', color: 'white', span: { color: 'white' } }
               : ''
           }
@@ -131,10 +147,10 @@ export const PropertyType = ({ handlePropertyFilter, filter }) => {
           gap="10px"
           h="120px"
           justifyContent="center"
-          onClick={() => handlePropertyFilter({ type: 'vacant' })}
+          onClick={() => setProppertyToggle('vacant')}
           rounded="10px"
           sx={
-            filter.type == 'vacant'
+            filters.types.includes('vacant')
               ? { bg: '#3347D2', color: 'white', span: { color: 'white' } }
               : ''
           }

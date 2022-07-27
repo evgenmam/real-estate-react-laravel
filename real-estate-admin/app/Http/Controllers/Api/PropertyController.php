@@ -16,22 +16,22 @@ class PropertyController extends Controller
         $rooms = $request->input('rooms');
         $bathrooms = $request->input('bathrooms');
         $search = $request->input('search');
-        $type = $request->input('type');
+        $types = $request->input('types');
         $price = $request->input('price');
 
         $properties = Property::query()
-            ->when($type,
-                function ($query) use ($type) {
-                    $query->where('type', $type);
+            ->when($types,
+                function ($query) use ($types) {
+                    $query->whereIn('type', explode(',', $types));
                 })
             ->when($rooms,
                 function ($query) use ($rooms) {
-                    ($rooms == 5) ? $query->where('rooms', '>=', $rooms) : $query->where('rooms', '=', $rooms);
+                    ($rooms == 5) ? $query->where('rooms', '>=', $rooms) : $query->where('rooms', '<=', $rooms);
                 })
             ->when($bathrooms,
                 function ($query) use ($bathrooms) {
                     ($bathrooms == 5) ? $query->where('bathrooms', '>=', $bathrooms)
-                        : $query->where('bathrooms', '=', $bathrooms);
+                        : $query->where('bathrooms', '<=', $bathrooms);
                 })
             ->when($request->input('price'),
                 function ( $query) use ($price) {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react'
 import mapboxgl, { Popup } from 'mapbox-gl'
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { PropertyContext } from '../../App'
 import { Marker } from './Marker'
 

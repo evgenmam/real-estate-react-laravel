@@ -27,13 +27,13 @@ export const SidebarPrice = ({ min, max, handlePropertyFilter }) => {
           <RangeSliderFilledTrack bg="#3347D2" />
         </RangeSliderTrack>
         <RangeSliderThumb
-          boxSize={5}
+          boxSize={4}
           index={0}
           color="red.400"
           boxShadow="0px 0px 0px 2px #3347D2"
         />
         <RangeSliderThumb
-          boxSize={5}
+          boxSize={4}
           index={1}
           boxShadow="0px 0px 0px 2px #3347D2"
         />
