@@ -21,25 +21,30 @@ class PropertyController extends Controller
 
         $properties = Property::query()
             ->when($types,
-                function ($query) use ($types) {
+                function ($query) use ($types)
+                {
                     $query->whereIn('type', explode(',', $types));
                 })
             ->when($rooms,
-                function ($query) use ($rooms) {
+                function ($query) use ($rooms)
+                {
                     ($rooms == 5) ? $query->where('rooms', '>=', $rooms) : $query->where('rooms', '<=', $rooms);
                 })
             ->when($bathrooms,
-                function ($query) use ($bathrooms) {
+                function ($query) use ($bathrooms)
+                {
                     ($bathrooms == 5) ? $query->where('bathrooms', '>=', $bathrooms)
                         : $query->where('bathrooms', '<=', $bathrooms);
                 })
             ->when($request->input('price'),
-                function ( $query) use ($price) {
+                function ($query) use ($price)
+                {
                     $query->whereBetween('price', explode(',', $price) );
                 })
             ->when($search ,
-                function ( $query) use ($search) {
-                    $query->where('name', 'like', "%$search");
+                function ($query) use ($search)
+                {
+                    $query->where('name', 'like', "%$search%");
                 })
             ->get();
 
@@ -48,8 +53,13 @@ class PropertyController extends Controller
 
     public function search(Request $request)
     {
-        $text = $request->input('text');
-        $properties = Property::where('name','like', "%$text%")->get();
+        $search = $request->input('text');
+        $properties = Property::when($search ,
+            function ($query) use ($search)
+            {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->get();
 
         return PropertyResource::collection($properties);
     }

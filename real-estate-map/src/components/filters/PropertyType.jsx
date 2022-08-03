@@ -1,12 +1,25 @@
 import { Box, Button, Heading, SimpleGrid, Text } from '@chakra-ui/react'
-import React, { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { PropertyContext } from '../../App'
+import useMapStore from '../../store/MapStore'
+
+const buttonStyle = {
+  _hover: { bg: '#3347D2', color: 'white' },
+  alignItems: 'center',
+  bg: 'gray.100',
+  className: 'button_item',
+  color: '#3347D2',
+  display: 'flex',
+  flexDir: 'column',
+  gap: '10px',
+  h: '120px',
+  justifyContent: 'center',
+}
 
 export const PropertyType = () => {
-  const { filters, setFilters } = useContext(PropertyContext)
   const [toogleType, setToggleType] = useState([])
+  const filters = useMapStore((state) => state.filters)
+  const setFilters = useMapStore((state) => state.setFilters)
 
   function setProppertyToggle(type) {
     toogleType.includes(type)
@@ -15,7 +28,7 @@ export const PropertyType = () => {
   }
 
   useEffect(() => {
-    setFilters((filter) => ({ ...filter, types: toogleType }))
+    setFilters({ types: toogleType })
   }, [toogleType])
 
   return (
@@ -25,16 +38,8 @@ export const PropertyType = () => {
       </Heading>
       <SimpleGrid columns={2} spacing={5}>
         <Button
-          _hover={{ bg: '#3347D2', color: 'white' }}
-          alignItems="center"
-          bg="gray.100"
           className="button_item"
-          color="#3347D2"
-          display="flex"
-          flexDir="column"
-          gap="10px"
-          h="120px"
-          justifyContent="center"
+          variant="property"
           onClick={() => setProppertyToggle('house')}
           sx={
             filters.types.includes('house')
@@ -65,16 +70,8 @@ export const PropertyType = () => {
           </Text>
         </Button>
         <Button
-          _hover={{ bg: '#3347D2', color: 'white' }}
-          alignItems="center"
-          bg="gray.100"
           className="button_item"
-          color="#3347D2"
-          display="flex"
-          flexDir="column"
-          gap="10px"
-          h="120px"
-          justifyContent="center"
+          variant="property"
           onClick={() => setProppertyToggle('commercial')}
           rounded="10px"
           sx={
@@ -101,16 +98,8 @@ export const PropertyType = () => {
           </Text>
         </Button>
         <Button
-          _hover={{ bg: '#3347D2', color: 'white' }}
-          alignItems="center"
-          bg="gray.100"
           className="button_item"
-          color="#3347D2"
-          display="flex"
-          flexDir="column"
-          gap="10px"
-          h="120px"
-          justifyContent="center"
+          variant="property"
           onClick={() => setProppertyToggle('apartment')}
           sx={
             filters.types.includes('apartment')
@@ -137,16 +126,8 @@ export const PropertyType = () => {
           </Text>
         </Button>
         <Button
-          _hover={{ bg: '#3347D2', color: 'white' }}
-          alignItems="center"
-          bg="gray.100"
           className="button_item"
-          color="#3347D2"
-          display="flex"
-          flexDir="column"
-          gap="10px"
-          h="120px"
-          justifyContent="center"
+          variant="property"
           onClick={() => setProppertyToggle('vacant')}
           rounded="10px"
           sx={

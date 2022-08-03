@@ -8,8 +8,12 @@ import {
   Text,
 } from '@chakra-ui/react'
 import React from 'react'
+import useMapStore from '../../store/MapStore'
 
-export const SidebarPrice = ({ min, max, handlePropertyFilter }) => {
+export const PriceRange = () => {
+  const setFilters = useMapStore((state) => state.setFilters)
+  const [min, max] = useMapStore((state) => state.filters.price)
+
   return (
     <Box mt="32px">
       <Heading fontSize="2xl" mb="20px">
@@ -20,7 +24,7 @@ export const SidebarPrice = ({ min, max, handlePropertyFilter }) => {
         aria-label={['min', 'max']}
         min={1000}
         max={100000}
-        onChangeEnd={(val) => handlePropertyFilter({ price: val })}
+        onChangeEnd={(val) => setFilters({ price: val })}
         defaultValue={[min, max]}
       >
         <RangeSliderTrack>

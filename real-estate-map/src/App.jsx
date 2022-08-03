@@ -1,51 +1,46 @@
-import React, { useEffect, useState, createContext } from 'react'
-import { ChakraProvider, Container, Flex } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import {
+  ChakraProvider,
+  Container,
+  Flex,
+  useDisclosure,
+  useMediaQuery,
+} from '@chakra-ui/react'
 import mapboxgl from 'mapbox-gl'
-import { Navbar } from './components/navbar/Navbar'
-import { Sidebar } from './components/sidebar/Sidebar'
-import { MapView } from './components/map/MapView'
-import { api } from './components/utils/api'
-
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './components/map/popup.css'
+import theme from './theme'
+import '@fontsource/poppins'
+import useStore from './store/MapStore'
+import { Navbar } from './components/navbar/Navbar'
+import { Sidebar } from './components/sidebar/Sidebar'
+import { SidebarMobil } from './components/sidebar/SidebarMobil'
+import { MapView } from './components/map/MapView'
 
 mapboxgl.accessToken = import.meta.env.VITE_ACCESS_TOKEN
 
-export const PropertyContext = createContext(null)
-
 const App = () => {
-  const [properties, setProperties] = useState([])
+  const getProperties = useStore((state) => state.getProperties)
+  const filters = useStore((state) => state.filters)
 
-  const [filters, setFilters] = useState({
-    types: [],
-    price: [1000, 20000],
-    rooms: '',
-    bathrooms: '',
-  })
+  const [isLargerThan768] = useMediaQuery(['(min-width: 62em)'])
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    api
-      .get('properties', {
-        searchParams: filters,
-      })
-      .json()
-      .then(({ data }) => {
-        setProperties(data)
-      })
-      .catch((err) => console.log(err))
+    getProperties()
   }, [filters])
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Container maxW="8xl" minH="100vh" p="0">
-        <Navbar />
+        <Navbar onOpen={onOpen} />
         <Flex h="calc(100vh - 80px)">
-          <PropertyContext.Provider
-            value={{ properties, setProperties, filters, setFilters }}
-          >
+          {isLargerThan768 ? (
             <Sidebar />
-            <MapView />
-          </PropertyContext.Provider>
+          ) : (
+            <SidebarMobil isOpen={isOpen} onClose={onClose} />
+          )}
+          <MapView />
         </Flex>
       </Container>
     </ChakraProvider>

@@ -30,8 +30,8 @@ class PropertyFactory extends Factory
             'img_path' => Storage::putFile('images', new File('test_image.jpg')),
             'rooms' => $this->faker->randomDigitNotNull(),
             'bathrooms' => $this->faker->randomDigitNotNull(),
-            'latitude' => $this->faker->latitude($min = -90, $max = 90),
-            'longitude' => $this->faker->longitude($min = -180, $max = 180) ,
+            'latitude' => $this->faker->latitude($min = 11, $max = 13),
+            'longitude' => $this->faker->longitude($min = -83, $max = -87) ,
             'user_id' => User::factory()->createOne()
         ];
     }
