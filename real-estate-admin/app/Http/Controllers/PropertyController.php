@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertyRequest;
 use App\Models\Property;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
 
-    public function index()
+    public function index(): View
     {
         $user = auth()->user();
         $properties = $user->properties;
@@ -19,11 +21,10 @@ class PropertyController extends Controller
     }
 
 
-    public function create()
+    public function create(): View
     {
         return view('properties.create',['property' => null]);
     }
-
 
     public function store(PropertyRequest $request): RedirectResponse
     {
@@ -49,22 +50,31 @@ class PropertyController extends Controller
     }
 
 
-    public function edit(Property $property)
+    public function edit(Property $property):View
     {
         return view('properties.edit',compact('property'));
     }
 
-    public function update(PropertyRequest $request, Property $property)
+    public function update(PropertyRequest $request, Property $property):RedirectResponse
     {
         $data = $request->validated();
-        if ($request->hasFile('img_path')) {
-
-            Storage::delete($property->img_path);
-
-            $data['img_path'] = $request->file('img_path')->store('images');
+        $imgTemp = null;
+        $imgPath = '';
+        try {
+            if ($request->hasFile('image')) {
+                $imgTemp = $property->img_path;
+                $imgPath = $request->file('image')->store('images');
+                $data['img_path'] = $imgPath;
+            }
+            $property->update($data);
+        }catch (QueryException $exception){
+                Storage::delete($imgPath);
+            return back()->with('update','fail');
         }
 
-        $property->update($data);
+        if ($imgTemp){
+            Storage::delete($imgTemp);
+        }
 
         return redirect()->action([PropertyController::class,'index'])->with('update','Property was updated');
     }

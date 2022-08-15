@@ -8,14 +8,13 @@ export const MapView = () => {
   const properties = useMapStore((state) => state.properties)
   const setMap = useMapStore((state) => state.setMap)
   const map = useMapStore((state) => state.map)
-  const markers = useRef([])
   const mapContainer = useRef(null)
 
   useEffect(() => {
     const mapEl = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10',
-      center: [-85, 12.96],
+      center: [-84, 12.96],
       zoom: 7,
     })
 

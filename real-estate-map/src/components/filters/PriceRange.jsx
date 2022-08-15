@@ -7,7 +7,6 @@ import {
   RangeSliderTrack,
   Text,
 } from '@chakra-ui/react'
-import React from 'react'
 import useMapStore from '../../store/MapStore'
 
 export const PriceRange = () => {

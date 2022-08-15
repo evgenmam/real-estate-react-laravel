@@ -19,6 +19,7 @@ const theme = extendTheme({
           bg: 'gray.200',
           width: '62px',
           height: '56px',
+          borderRadius: '16px',
           _hover: {
             bg: 'blue.primary',
             color: 'white',
@@ -33,7 +34,8 @@ const theme = extendTheme({
           _hover: { bg: '#3347D2', color: 'white' },
           fontWeight: '500',
           alignItems: 'center',
-          bg: 'gray.100',
+          bg: 'gray.200',
+          borderRadius: '10px',
           color: '#3347D2',
           display: 'flex',
           flexDir: 'column',

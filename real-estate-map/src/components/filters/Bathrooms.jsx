@@ -8,7 +8,7 @@ export const Bathrooms = ({ value, filter }) => {
     <Button
       variant={'filter'}
       onClick={() => setFilters({ bathrooms: value })}
-      sx={filter == value ? { bg: '#3347D2', color: 'white' } : ''}
+      sx={filter === value && { bg: '#3347D2', color: 'white' }}
     >
       {value}
     </Button>

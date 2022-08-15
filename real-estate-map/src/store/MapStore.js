@@ -7,14 +7,14 @@ const useMapStore = create((set, get) => ({
   filters: { types: [], price: [1000, 20000], rooms: '', bathrooms: '' },
 
   setMap: (map) => {
-    set({map: map})
+    set({ map: map })
   },
 
   getProperties: async () => {
     try {
       const { data } = await api
         .get('properties', {
-          searchParams: get().filters,
+          searchParams: get().filters ,
         })
         .json()
       set({ properties: data })

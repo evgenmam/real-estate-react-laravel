@@ -194,11 +194,11 @@
                     shadow-sm
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
-                   name="img_path"
+                   name="image"
                    multiple
             >
         </label>
-        @error('img_path')
+        @error('image')
             <div class="text-red-600 text-sm pb-2">{{$message}}</div>
         @enderror
 

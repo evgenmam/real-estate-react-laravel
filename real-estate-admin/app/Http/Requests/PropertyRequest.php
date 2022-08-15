@@ -35,7 +35,7 @@ class PropertyRequest extends FormRequest
                 $this->route('property') ? 'sometimes' : 'required',
                 'mimes:jpg,png,jpeg'
             ],
-            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'latitude' => ['required','numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180']
         ];
     }

@@ -9,8 +9,8 @@
     border-radius: 50%;
     color: white;
     font-size: 1.5rem;
-    inset-block-start: 4px;
-    inset-inline-end: 10px;
+    inset-block-start: -6px;
+    inset-inline-end: -2px;
     outline: none;
     width: 18px;
 }

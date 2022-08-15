@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Image, Text } from '@chakra-ui/react'
 import React from 'react'
 
 export const Popup = ({
@@ -18,13 +18,12 @@ export const Popup = ({
           px="14px"
           py="12px"
           fontSize="md"
-          fontWeight="500"
           color="white"
           rounded="6px"
           insetBlockStart="20px"
           insetInlineStart="20px"
         >
-          ${price}/mo
+          $ {price}/mo
         </Box>
         <Image height="full" width="full" src={image_url} objectFit="cover" />
         <Box
@@ -114,21 +113,3 @@ export const Popup = ({
     </Box>
   )
 }
-
-// ;`<div class="card">
-//   //         <div class="card__body">
-//   //           <span class="card__price">$${property.price}/mo</span>
-//   //           <img
-//   //             src="${property.image_url}"
-//   //             alt=""
-//   //             class="card__img"
-//   //           />
-//   //           <div class="card__info">
-//   //             <h4 class="card__name"> ${property.name}</h4>
-//   //             <span class="card__description">
-//   //             ${property.description}
-//   //             </span>
-//   //           </div>
-//   //         </div>
-//   //         <div class="card_">rooms:${property.rooms} bathrooms:${property.bathrooms}</div>
-//   //       </div>`

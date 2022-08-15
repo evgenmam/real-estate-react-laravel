@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import { useEffect } from 'react'
 import useMapStore from '../../store/MapStore'
 
 export const SearchInput = () => {
@@ -20,7 +19,6 @@ export const SearchInput = () => {
         type="text"
         placeholder="Search"
         rounded="inherit"
-        //   onInput={({target}) => setSearch(target.value)}
         value={search}
         onChange={({ target }) => setSearch(target.value)}
       />

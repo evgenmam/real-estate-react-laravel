@@ -1,51 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react'
-
-import { SearchIcon } from '@chakra-ui/icons'
-import {
-  Box,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
-import { api } from '../../utils/api'
-import debounce from 'lodash.debounce'
+import { useEffect } from 'react'
+import { Box, Heading, Stack, Text } from '@chakra-ui/react'
 import { Rooms } from '../filters/Rooms'
-import { PropertyType } from '../filters/PropertyType'
-import useMapStore from '../../store/MapStore'
+import { PropertyTypeList } from '../filters/PropertyTypeList'
 import { Bathrooms } from '../filters/Bathrooms'
 import { PriceRange } from '../filters/PriceRange'
-import { useCallback } from 'react'
 import { SearchInput } from '../filters/SearchInput'
+import useMapStore from '../../store/MapStore'
+
+const buttons = [1, 2, 3, 4, 5]
 
 export const Sidebar = () => {
-  const [search, setSearch] = useState('')
-  // const [result, setResult] = useState([])
-  // const [loading, setLoading] = useState(false)
-
-  const buttons = [1, 2, 3, 4, 5]
-
   const filters = useMapStore((state) => state.filters)
+  const getProperties = useMapStore((state) => state.getProperties)
+
   const { rooms, bathrooms } = filters
 
-  // async function fetchData() {
-  //   if (!search) return
-  //   setLoading(true)
-  //   const { data } = await api
-  //     .get('search', { searchParams: { text: search } })
-  //     .json()
-  //   setResult(data)
-  //   setLoading(false)
-  // }
-
-  // const debounceFn = useCallback(debounce(fetchData, 300), [])
-
-  // useEffect(() => {
-  //   debounceFn()
-  // }, [search])
-  // console.log('resultados', debounceFn)
+  useEffect(() => {
+    getProperties()
+  }, [filters])
 
   return (
     <Box
@@ -59,7 +31,7 @@ export const Sidebar = () => {
     >
       <SearchInput />
 
-      <PropertyType />
+      <PropertyTypeList />
 
       <PriceRange />
 
