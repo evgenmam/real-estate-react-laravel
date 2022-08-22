@@ -140,7 +140,7 @@
         <div class="flex gap-2">
             <label class="block py-2">
                 <span class="text-gray-700">Latitude (Y)</span>
-                <input type="text" class="
+                <input type="number" step="any" class="
                     lat
                     mt-1
                     block
@@ -162,7 +162,7 @@
 
             <label class="block py-2">
                 <span class="text-gray-700">Longitude (X)</span>
-                <input type="text" class="
+                <input type="number" step="any" class="
                     lng
                     mt-1
                     block
@@ -194,11 +194,11 @@
                     shadow-sm
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
-                   name="image"
+                   name="img_path"
                    multiple
             >
         </label>
-        @error('image')
+        @error('img_path')
             <div class="text-red-600 text-sm pb-2">{{$message}}</div>
         @enderror
 

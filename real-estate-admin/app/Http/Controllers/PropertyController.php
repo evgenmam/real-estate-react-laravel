@@ -59,16 +59,16 @@ class PropertyController extends Controller
     {
         $data = $request->validated();
         $imgTemp = null;
-        $imgPath = '';
         try {
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('img_path')) {
                 $imgTemp = $property->img_path;
-                $imgPath = $request->file('image')->store('images');
-                $data['img_path'] = $imgPath;
+                $data['img_path'] = $request->file('img_path')->store('images');
             }
             $property->update($data);
         }catch (QueryException $exception){
-                Storage::delete($imgPath);
+            if ($imgTemp){
+                Storage::delete($data['img_path']);
+            }
             return back()->with('update','fail');
         }
 
