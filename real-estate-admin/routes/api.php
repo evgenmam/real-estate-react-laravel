@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('properties', PropertyController::class)->only(['index','search']);
+Route::apiResource('properties', PropertyController::class)->only(['index']);

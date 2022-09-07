@@ -24,8 +24,8 @@ return new class extends Migration
             $table->unsignedInteger('rooms');
             $table->unsignedInteger('bathrooms');
             $table->string('img_path');
-            $table->float('latitude',8,0);
-            $table->float('longitude',8,0);
+            $table->float('latitude', 8, 0);
+            $table->float('longitude', 8, 0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Storage;
  */
 class PropertyFactory extends Factory
 {
-
-
     /**
      * Define the model's default state.
      *
@@ -31,8 +29,8 @@ class PropertyFactory extends Factory
             'rooms' => $this->faker->randomDigitNotNull(),
             'bathrooms' => $this->faker->randomDigitNotNull(),
             'latitude' => $this->faker->latitude($min = 11, $max = 13),
-            'longitude' => $this->faker->longitude($min = -83, $max = -87) ,
-            'user_id' => User::factory()->createOne()
+            'longitude' => $this->faker->longitude($min = -83, $max = -87),
+            'user_id' => User::factory()->createOne(),
         ];
     }
 }

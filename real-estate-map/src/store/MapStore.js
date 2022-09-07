@@ -4,24 +4,10 @@ import { api } from '../utils/api'
 const useMapStore = create((set, get) => ({
   map: null,
   properties: [],
-  filters: { types: [], price: [1000, 20000], rooms: '', bathrooms: '' },
+  filters: { types: [], price: [1000, 20000], rooms: null, bathrooms: null },
 
   setMap: (map) => {
     set({ map: map })
-  },
-
-  getProperties: async () => {
-    try {
-      const { data } = await api
-        .get('properties', {
-          searchParams: get().filters ,
-        })
-        .json()
-      set({ properties: data })
-    } catch (error) {
-      console.log(error)
-      set({ properties: [] })
-    }
   },
 
   setFilters: (filter) => {

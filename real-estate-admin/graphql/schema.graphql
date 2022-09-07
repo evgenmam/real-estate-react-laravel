@@ -1,0 +1,49 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+enum PropertyType {
+    HOME
+    COMMERCIAL
+    APARTMENT
+    VACANT
+}
+
+type Query {
+    properties: [Property!]! @all
+    filterProperties(input:filterInput @spread): [Property!]!
+}
+
+input filterInput {
+    rooms: Int
+    bathrooms: Int
+    types: [String]
+    price: [Int]
+    search: String
+}
+
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    email_verified_at: DateTime
+    created_at: DateTime!
+    updated_at: DateTime!
+    properties: [Property!]! @hasMany
+}
+
+type Property {
+    id: ID!
+    name: String!
+    description: String!
+    type: PropertyType!
+    price: Int!
+    rooms: Int!
+    bathrooms: Int!
+    img_path: String!
+    latitude: Float!
+    longitude: Float!
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: User! @belongsTo
+}

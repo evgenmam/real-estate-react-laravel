@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\GraphQL\Queries;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\PropertyCollection;
 use App\Models\Property;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
-class PropertyController extends Controller
+final class FilterProperties
 {
-    public function index(Request $request): PropertyCollection
+    public function __invoke($root, array $args): Collection
     {
-//        logger($request->all());
-        $rooms = $request->input('rooms');
-        $bathrooms = $request->input('bathrooms');
-        $search = $request->input('search');
-        $types = $request->input('types');
-        $price = $request->input('price');
+        $rooms = $args['rooms'];
+        $bathrooms = $args['bathrooms'];
+        $search = $args['search'];
+        $types = $args['types'];
+        $price = $args['price'];
 
         $properties = Property::query()
             ->when($types, function (Builder $query, $types) {
-                $query->whereIn('type', explode(',', $types));
+                $query->whereIn('type', $types);
             })
             ->when($rooms,
                 function (Builder $query, $rooms) {
@@ -35,7 +33,7 @@ class PropertyController extends Controller
                 })
             ->when($price,
                 function (Builder $query, $price) {
-                    $query->whereBetween('price', explode(',', $price));
+                    $query->whereBetween('price',  $price);
                 })
             ->when($search,
                 function (Builder $query, string $search) {

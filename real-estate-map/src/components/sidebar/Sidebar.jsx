@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, Heading, Stack, Text } from '@chakra-ui/react'
 import { Rooms } from '../filters/Rooms'
 import { PropertyTypeList } from '../filters/PropertyTypeList'
@@ -11,13 +10,8 @@ const buttons = [1, 2, 3, 4, 5]
 
 export const Sidebar = () => {
   const filters = useMapStore((state) => state.filters)
-  const getProperties = useMapStore((state) => state.getProperties)
 
   const { rooms, bathrooms } = filters
-
-  useEffect(() => {
-    getProperties()
-  }, [filters])
 
   return (
     <Box

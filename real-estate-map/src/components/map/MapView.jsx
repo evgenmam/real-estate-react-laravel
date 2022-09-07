@@ -3,12 +3,34 @@ import mapboxgl from 'mapbox-gl'
 import { Box } from '@chakra-ui/react'
 import useMapStore from '../../store/MapStore'
 import { Marker } from './Marker'
+import { FILTER_PROPERTIES } from '../../graphql/properties/query'
+import { useLazyQuery, useQuery } from '@apollo/client'
 
 export const MapView = () => {
-  const properties = useMapStore((state) => state.properties)
   const setMap = useMapStore((state) => state.setMap)
   const map = useMapStore((state) => state.map)
   const mapContainer = useRef(null)
+
+  const filters = useMapStore((state) => state.filters)
+
+  const [getProperties, result] = useLazyQuery(FILTER_PROPERTIES)
+  // , {
+  //   variables: {
+  //     filterInput: {
+  //       ...filters,
+  //     },
+  //   },
+  // })
+  // console.log(result)
+  useEffect(() => {
+    getProperties({
+      variables: {
+        filterInput: {
+          ...filters,
+        },
+      },
+    })
+  }, [filters])
 
   useEffect(() => {
     const mapEl = new mapboxgl.Map({
@@ -34,7 +56,8 @@ export const MapView = () => {
   return (
     <Box width="full" ref={mapContainer}>
       {map &&
-        properties.map((property) => (
+        result?.data &&
+        result?.data?.filterProperties.map((property) => (
           <Marker key={property.id} property={property} />
         ))}
     </Box>

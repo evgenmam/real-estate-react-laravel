@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
-
     public function index(): View
     {
         $user = auth()->user();
@@ -20,10 +19,9 @@ class PropertyController extends Controller
         return view('properties.index', compact('properties'));
     }
 
-
     public function create(): View
     {
-        return view('properties.create',['property' => null]);
+        return view('properties.create', ['property' => null]);
     }
 
     public function store(PropertyRequest $request): RedirectResponse
@@ -36,7 +34,7 @@ class PropertyController extends Controller
 
         $user->properties()->create($data);
 
-        return back()->with('status','Property created successfully');
+        return back()->with('status', 'Property created successfully');
     }
 
     /**
@@ -49,13 +47,12 @@ class PropertyController extends Controller
     {
     }
 
-
-    public function edit(Property $property):View
+    public function edit(Property $property): View
     {
-        return view('properties.edit',compact('property'));
+        return view('properties.edit', compact('property'));
     }
 
-    public function update(PropertyRequest $request, Property $property):RedirectResponse
+    public function update(PropertyRequest $request, Property $property): RedirectResponse
     {
         $data = $request->validated();
         $imgTemp = null;
@@ -65,25 +62,25 @@ class PropertyController extends Controller
                 $data['img_path'] = $request->file('img_path')->store('images');
             }
             $property->update($data);
-        }catch (QueryException $exception){
-            if ($imgTemp){
+        } catch (QueryException $exception) {
+            if ($imgTemp) {
                 Storage::delete($data['img_path']);
             }
-            return back()->with('update','fail');
+
+            return back()->with('update', 'fail');
         }
 
-        if ($imgTemp){
+        if ($imgTemp) {
             Storage::delete($imgTemp);
         }
 
-        return redirect()->action([PropertyController::class,'index'])->with('update','Property was updated');
+        return redirect()->action([PropertyController::class, 'index'])->with('update', 'Property was updated');
     }
-
 
     public function destroy(Property $property): RedirectResponse
     {
         $property->delete();
 
-        return redirect()->action([PropertyController::class,'index'])->with('delete','Property was deleted');
+        return redirect()->action([PropertyController::class, 'index'])->with('delete', 'Property was deleted');
     }
 }

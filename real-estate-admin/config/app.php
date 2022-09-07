@@ -185,7 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Providers\GraphQLServiceProvider::class,
         /*
          * Application Service Providers...
          */

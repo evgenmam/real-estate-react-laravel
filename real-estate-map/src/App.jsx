@@ -14,6 +14,10 @@ import { Navbar } from './components/navbar/Navbar'
 import { Sidebar } from './components/sidebar/Sidebar'
 import { SidebarMobil } from './components/sidebar/SidebarMobil'
 import { MapView } from './components/map/MapView'
+import { FILTER_PROPERTIES } from './graphql/properties/query'
+import useMapStore from './store/MapStore'
+import { useEffect } from 'react'
+import { useQuery } from '@apollo/client'
 
 mapboxgl.accessToken = import.meta.env.VITE_ACCESS_TOKEN
 

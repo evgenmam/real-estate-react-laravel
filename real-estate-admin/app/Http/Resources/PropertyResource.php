@@ -26,7 +26,7 @@ class PropertyResource extends JsonResource
             'price' => $this->price,
             'rooms' => $this->rooms,
             'type' => $this->type,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
         ];
     }
 }

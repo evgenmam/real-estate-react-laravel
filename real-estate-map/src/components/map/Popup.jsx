@@ -5,7 +5,7 @@ export const Popup = ({
   name,
   description,
   price,
-  image_url,
+  img_path,
   rooms,
   bathrooms,
 }) => {
@@ -25,7 +25,14 @@ export const Popup = ({
         >
           $ {price}/mo
         </Box>
-        <Image height="full" width="full" src={image_url} objectFit="cover" />
+        <Image
+          height="full"
+          width="full"
+          src={img_path}
+          // alt={`image ${name}`}
+
+          objectFit="cover"
+        />
         <Box
           position="absolute"
           insetBlockEnd="12px"

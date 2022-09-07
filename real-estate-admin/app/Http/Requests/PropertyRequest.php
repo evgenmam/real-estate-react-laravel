@@ -5,9 +5,6 @@ namespace App\Http\Requests;
 use App\Enums\PropertyType;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class PropertyRequest extends FormRequest
 {
@@ -21,7 +18,6 @@ class PropertyRequest extends FormRequest
         return true;
     }
 
-
     public function rules()
     {
         return [
@@ -33,10 +29,10 @@ class PropertyRequest extends FormRequest
             'price' => ['required', 'integer', 'min:1'],
             'img_path' => [
                 $this->route('property') ? 'sometimes' : 'required',
-                'mimes:jpg,png,jpeg'
+                'mimes:jpg,png,jpeg',
             ],
-            'latitude' => ['required','numeric', 'between:-90,90'],
-            'longitude' => ['required', 'numeric', 'between:-180,180']
+            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
         ];
     }
 //
@@ -45,7 +41,7 @@ class PropertyRequest extends FormRequest
     {
         return [
             'img_path.required' => 'the image is required',
-            'img_path.mimes' => 'the image must be a file of type: jpg, png or jpeg'
+            'img_path.mimes' => 'the image must be a file of type: jpg, png or jpeg',
         ];
     }
 }
