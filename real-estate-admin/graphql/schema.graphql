@@ -10,10 +10,10 @@ enum PropertyType {
 
 type Query {
     properties: [Property!]! @all
-    filterProperties(input:filterInput @spread): [Property!]!
+    filterProperties(input: FilterInput @spread): [Property!]!
 }
 
-input filterInput {
+input FilterInput {
     rooms: Int
     bathrooms: Int
     types: [String]

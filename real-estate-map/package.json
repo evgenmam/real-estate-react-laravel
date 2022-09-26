@@ -17,7 +17,8 @@
     "graphql": "^16.6.0",
     "mapbox-gl": "^2.9.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.4.0"
   },
   "devDependencies": {
     "@fontsource/passion-one": "^4.5.7",

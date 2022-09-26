@@ -7,11 +7,19 @@ import {
   RangeSliderTrack,
   Text,
 } from '@chakra-ui/react'
+import { useSearchParams } from 'react-router-dom'
 import useMapStore from '../../store/MapStore'
 
 export const PriceRange = () => {
   const setFilters = useMapStore((state) => state.setFilters)
   const [min, max] = useMapStore((state) => state.filters.price)
+  const [params, setParams] = useSearchParams()
+
+  function setPrice(price) {
+    params.set('price', price)
+    setParams(params)
+    setFilters({ price })
+  }
 
   return (
     <Box mt="32px">
@@ -23,7 +31,7 @@ export const PriceRange = () => {
         aria-label={['min', 'max']}
         min={1000}
         max={100000}
-        onChangeEnd={(val) => setFilters({ price: val })}
+        onChangeEnd={(price) => setPrice(price)}
         defaultValue={[min, max]}
       >
         <RangeSliderTrack>

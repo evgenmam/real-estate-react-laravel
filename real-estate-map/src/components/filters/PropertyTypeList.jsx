@@ -1,23 +1,28 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import useMapStore from '../../store/MapStore'
+
 import { PropertyTypeItem } from './PropertyTypeItem'
 import { propertyTypes } from '../icons/Types'
+import useMapStore from '../../store/MapStore'
+import { useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 export const PropertyTypeList = () => {
-  const [toogleType, setToggleType] = useState([])
+  const filters = useMapStore((state) => state.filters)
   const setFilters = useMapStore((state) => state.setFilters)
+  const [params, setParams] = useSearchParams()
+
+  const [types, setTypes] = useState(filters.types)
 
   function setProppertyToggle(type) {
-    toogleType.includes(type)
-      ? setToggleType(toogleType.filter((t) => t !== type))
-      : setToggleType((t) => [...t, type])
+    types.includes(type)
+      ? setTypes(types.filter((t) => t !== type))
+      : setTypes((t) => [...t, type])
   }
-
   useEffect(() => {
-    setFilters({ types: toogleType })
-  }, [toogleType])
+    params.set('types', types)
+    setParams(params)
+    setFilters({ types })
+  }, [types])
 
   return (
     <Box mt="22px">
@@ -26,9 +31,9 @@ export const PropertyTypeList = () => {
       </Heading>
 
       <SimpleGrid columns={2} spacing={5}>
-        {propertyTypes.map((type, index) => (
+        {propertyTypes.map((type) => (
           <PropertyTypeItem
-            key={index}
+            key={type.type}
             setProppertyToggle={setProppertyToggle}
             {...type}
           />

@@ -1,10 +1,15 @@
 import create from 'zustand'
-import { api } from '../utils/api'
 
-const useMapStore = create((set, get) => ({
+const useMapStore = create((set) => ({
   map: null,
   properties: [],
-  filters: { types: [], price: [1000, 20000], rooms: null, bathrooms: null },
+  filters: {
+    types: [],
+    price: [1000, 50000],
+    rooms: null,
+    bathrooms: null,
+    search: '',
+  },
 
   setMap: (map) => {
     set({ map: map })

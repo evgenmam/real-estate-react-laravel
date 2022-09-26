@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const FILTER_PROPERTIES = gql`
-  query filterPropertiesQuery($filterInput: filterInput) {
+  query filterPropertiesQuery($filterInput: FilterInput) {
     filterProperties(input: $filterInput) {
       id
       name
@@ -15,14 +15,3 @@ export const FILTER_PROPERTIES = gql`
     }
   }
 `
-// $rooms: Int
-// $bathrooms: Int
-// $types: [String]
-// $price: [Int]
-// $search: String
-
-// rooms: $rooms
-// bathrooms: $bathrooms
-// types: $types
-// price: $price
-// search: $search
